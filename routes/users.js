@@ -11,4 +11,21 @@ router.get('/', function (req, res) {
         });
 });
 
+router.get('/:username', function (req, res, next) {
+    const {username} = req.params;
+     return models.Users.find({username})
+     .then((commentPoster) => {
+         if (commentPoster.length < 1) {
+                return next({ status: 404, message: 'User not found' });
+            }
+            else return res.status(200).json({ commentPoster });
+        })
+    .catch((err) => {
+        console.log(err)
+            if (err.name === 'CastError') {
+                return next({ status: 422, message: 'Invalid User' });
+            }
+        });
+});
+
 module.exports = router;
