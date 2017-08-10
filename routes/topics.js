@@ -11,16 +11,16 @@ router.get('/', function (req, res) {
         });
 });
 
-router.get('/:topic_id/articles', function (req, res) {
+router.get('/:topic_id/articles', function (req, res, next) {
     const slug = req.params.topic_id;
     models.Articles.find({ belongs_to: slug })
         .then((articlesByTopic) => {
-            return res.status(200).json({ articlesByTopic });
+            if (articlesByTopic.length < 1) {
+                return next({ status: 404, message: 'Topic not found' });
+            }
+            res.status(200).json({ articlesByTopic });
         })
-        .catch((err) => {
-            return res.status(404).json(err);
-        });
-
+        .catch(next);
 });
 
 module.exports = router;

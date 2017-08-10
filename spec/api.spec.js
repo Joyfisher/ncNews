@@ -39,19 +39,31 @@ describe('API', function () {
         });
     });
   });
+
   describe('GET /api/topics/:topic_id/articles', function () {
     it('should return all of the articles that match the requested topic', function (done) {
-
+      
       request(server)
         .get('/api/topics/football/articles')
         .end((err, res) => {
           if (err) return console.log(err);
-          expect(res.status).to.equal(200);
-          expect(res.body.articlesByTopic.length).to.equal(1);
-          done();
+            expect(res.status).to.equal(200);
+            expect(res.body.articlesByTopic.length).to.equal(1);
+            done();
         });
     });
-  });
+    it('should return all of the articles that match the requested topic', function (done) {
+      
+      request(server)
+        .get('/api/topics/coconuts/articles')
+        .end((err, res) => {
+          if (err) return console.log(err);
+            expect(res.status).to.equal(404);
+            expect(res.body.articlesByTopic).to.equal(undefined);
+            done();
+        });
+    });
+});
 
    describe('GET /articles', function () {
      it('responds with all articles', function (done) {
