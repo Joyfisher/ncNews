@@ -1,3 +1,4 @@
+
 const router = require('express').Router();
 const models = require('../models/models');
 
@@ -10,7 +11,6 @@ router.get('/', function (req, res) {
             return res.status(500).json(err);
         });
 });
-
 router.get('/:topic_id/articles', function (req, res, next) {
     const slug = req.params.topic_id;
     models.Articles.find({ belongs_to: slug })
