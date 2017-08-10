@@ -6,7 +6,7 @@ const saveTestData = require('../seed/test.seed');
 const config = require('../config');
 var mongoose = require('mongoose');
 const db = config.DB[process.env.NODE_ENV] || process.env.DB;
-// console.log('******', db);
+
 
 describe('API', function () {
  let usefulIds;
