@@ -67,4 +67,19 @@ describe('API', function () {
          });
      });
    });
+
+      describe('GET /users', function () {
+     it('responds with all users', function (done) {
+      
+       request(server)
+         .get('/api/users')
+         .end((err, res) => {
+           if (err) return console.log(err);
+             expect(res.status).to.equal(200);
+             expect(res.body.users.length).to.equal(1);
+             done();
+   
+         });
+     });
+   });
 });
