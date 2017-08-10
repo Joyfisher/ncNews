@@ -21,7 +21,6 @@ router.get('/:username', function (req, res, next) {
             else return res.status(200).json({ commentPoster });
         })
     .catch((err) => {
-        console.log(err)
             if (err.name === 'CastError') {
                 return next({ status: 422, message: 'Invalid User' });
             }
