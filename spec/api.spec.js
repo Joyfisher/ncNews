@@ -1,22 +1,22 @@
 process.env.NODE_ENV = 'test';
-const { expect } = require('chai');
+const {expect} = require('chai');
 const request = require('supertest');
-const mongoose = require('mongoose');
 const server = require('../server');
 const saveTestData = require('../seed/test.seed');
-mongoose.Promise = global.Promise;
+const config = require('../config');
+var mongoose = require('mongoose');
+const db = config.DB[process.env.NODE_ENV] || process.env.DB;
+// console.log('******', db);
 
 describe('API', function () {
-  let usefulData;
-  beforeEach(done => {
+ let usefulIds;
+  before((done) => {
     mongoose.connection.dropDatabase()
-      .then(saveTestData)
-      .then(data => {
-        usefulData = data;
-        console.log(usefulData);
+      .then(() => saveTestData(db, function (err, ids) {
+        if (err) throw err;
+        usefulIds = ids;
         done();
-      })
-      .catch(done);
+      }));
   });
   describe('GET /', function () {
     it('responds with status code 200', function (done) {
@@ -28,6 +28,20 @@ describe('API', function () {
             expect(res.status).to.equal(200);
             done();
           }
+        });
+    });
+  });
+  describe('GET /topics', function () {
+    it('responds with all topics', function (done) {
+
+      request(server)
+        .get('/api/topics')
+        .end((err, res) => {
+          if (err) return console.log(err);
+          expect(res.status).to.equal(200);
+          expect(res.body.topics.length).to.equal(3);
+          done();
+
         });
     });
   });

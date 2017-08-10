@@ -1,10 +1,10 @@
 module.exports = {
-  DB: {
-    test: 'mongodb://localhost/ncNews-test',
-    dev: 'mongodb://localhost/ncNews'
-  },
-  PORT: {
-    test: 3090,
-    dev: 3000
-  }
-};
+     DB: {
+         test: 'mongodb://localhost/ncNews-api-test',
+         dev: 'mongodb://localhost/ncNews-api'
+     },
+     PORT: {
+         test: 3090,
+         dev: 3000
+     }
+ }; 
