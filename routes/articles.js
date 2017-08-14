@@ -69,5 +69,23 @@ router.put('/:article_id', function (req, res) {
         });
 }
 );
+router.post('/:articles_id/comments', function (req, res, next) {
+    // add comment to article
+    let newComment = new models.Comments({
+        body: req.body.body,
+        belongs_to: req.params.articles_id
+    });
+    newComment.save()
+        .then((newComment) => {
+            res.json(201, { comment: newComment });
+        })
+        .catch((err) => {
+            console.log(err);
+            if (err.name === 'CastError') {
+                return next({ status: 422, message: 'Incorrect/Invalid ID' });
+            }
+            next(err);
+        });
+});
 
 module.exports = router;

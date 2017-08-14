@@ -29,4 +29,17 @@ router.put('/:comment_id', function (req, res) {
 }
 );
 
+router.delete('/:comment_id', function (req, res) {
+        
+        const {comment_id} = req.params;
+        return Comments.findByIdAndRemove(comment_id)
+        .then(() => {
+           return res.status(202).json({'message': 'comment successfully deleted'});
+        })
+        .catch((err) => {
+            res.status(500).json(err);
+        });
+});
+
+
 module.exports = router;
