@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const UserCard = function (props) {
   return (
     <div className='box'>
-      <user className='media'>
+      <article className='media'>
         <div className='media-left'>
           <i className='fa fa-arrow-up' aria-hidden='true'></i>
           <p>Upvotes:</p>
@@ -13,17 +13,15 @@ const UserCard = function (props) {
         </div>
         <div className='media-content'>
           <div className='content'>
-            <h3 className='title is-3'>{props.title}</h3>
+            <a href="/users/:id"><h3 className='title is-3'>{props.username}</h3></a>
           </div>
         </div>
-      </user>
+      </article>
     </div>
   );
 };
-
 UserCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  votes: PropTypes.number.isRequired
+  username: PropTypes.string.isRequired,
+  votes: PropTypes.any
 };
-
 export default UserCard;
