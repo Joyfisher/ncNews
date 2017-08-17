@@ -1,50 +1,40 @@
 import React from 'react';
-import axios from 'axios';
 import ArticleCard from './ArticleCard';
-
-import Loading from './Loading';
-
-const topicPath = 'http://localhost:3001/api/topics';
-
-class TopicList extends React.Component {
-  constructor () {
-    super();
+import axios from 'axios';
+const topicPath = 'http://localhost:3000/api/topics';
+class Topics extends React.Component {
+  constructor (props) {
+    super(props);
     this.state = {
-      topics: [],
-      loading: true
+      topics: []
     };
   }
   componentDidMount () {
     axios.get(`${topicPath}/${this.props.match.params.id}/articles`)
-    .then((response) => {
-
-          console.log(response);
-      this.setState({
-        topics: response.data.articlesByTopic,
-        loading: false
+      .then(topics => {
+        this.setState(
+          { topics: topics.data.articles }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    });
-
   }
-
   render () {
-    const {loading, topics} = this.state;
+    const {topics} = this.state;
     return (
-      loading 
-      ? <Loading />
-      : <div>
-        {topics.map((topic, i) => {
+      <div>
+        {
+        topics.map((topic, i) => {
           return <div key={i}>
-            <ArticleCard
-              votes={topic.votes}
-              title={topic.title}
-            /><br />
-            </div>;
-        })
-  }
-  </div>
+          <ArticleCard 
+          title={topic.title} 
+          votes={topic.votes} />
+          </div>;
+          })
+        }
+      </div>
     );
+  }
 }
-}
-
-export default TopicList;
+export default Topics;

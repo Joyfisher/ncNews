@@ -1,55 +1,47 @@
 import React from 'react';
 import ArticleCard from './ArticleCard';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-
 import Loading from './Loading';
-
+import axios from 'axios';
+const path = 'http://localhost:3000/api/articles';
 class ArticleList extends React.Component {
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
     this.state = {
       articles: [],
-      loading: true
+      loading: false
     };
   }
   componentDidMount () {
-    axios.get('http://localhost:3001/api/articles')
-    .then((response) => {
-      this.setState({
-        articles: response.data.articles,
-        loading: false
+    axios.get(`${path}`)
+      .then(articles => {
+        this.setState(
+          { articles: articles.data.articles,
+          loading:false }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    });
-
   }
-
   render () {
-    const {loading, articles} = this.state;
+    const { loading, articles } = this.state;
     return (
-      loading 
-      ? <Loading />
-      : <div id='ArticleList'>
-        {articles.map((article, i) => {
-          return <div key={i}>
-            <Art
-              id={article._id}
-              title={article.title}
-              votes={article.votes}
-            /><br />
-            </div>;
-        })
-  }
-  </div>
+      loading ?
+        <Loading /> :
+        <div id='ArticleList'>
+          <h1>Articles</h1>
+          {
+            articles.map((article, i) => {
+              return <div key={i}>
+                <ArticleCard
+                  title={article.title}
+                  votes={article.votes}
+                  id={article._id} />
+              </div>;
+            })
+          }
+        </div>
     );
+  }
 }
-}
-const Art = (props) => (
-  <div>
-    <Link to={`/articles/${props.id}`}>
-    <h3>{props.title}</h3>
-    <h3>{props.votes}</h3>
-    </Link>
-    </div>
-);
 export default ArticleList;
