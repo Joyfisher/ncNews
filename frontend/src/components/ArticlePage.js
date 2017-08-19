@@ -1,13 +1,15 @@
 import React from 'react';
 import Comments from './Comments';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
 const path = 'http://localhost:3000/api/articles';
 class ArticlePage extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       comment: '',
-      articles:[]
+      article:[]
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,9 +31,9 @@ class ArticlePage extends React.Component {
   componentDidMount () {
     axios.get(`${path}/${this.props.match.params.id}`)
     .then(articles => {
-      console.log(articles);
+      console.dir('Articles:' + articles.data);
       this.setState(
-        {article: articles.data.articles}
+        {article: articles.data}
       );
     })
     .catch((err) => {
@@ -39,6 +41,8 @@ class ArticlePage extends React.Component {
     });
   }
   render () {
+    console.log('props: ' + this.props);
+    console.log('state: ' + this.state);
     const { article } = this.state;
     return (
       <div id='ArticlePage'>
@@ -61,4 +65,7 @@ class ArticlePage extends React.Component {
     );
   }
 }
+ArticlePage.propTypes = {
+  match: PropTypes.object.isRequired
+};
 export default ArticlePage;

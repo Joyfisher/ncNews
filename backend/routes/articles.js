@@ -11,6 +11,17 @@ router.get('/', function (req, res) {
             return res.status(500).json(err);
         });
 });
+
+// find Article by ID
+router.get('/:article_id', function (req, res, next) {
+    models.Articles.findById(req.params.articles_id, function (err, article) {
+        if (err) return next({status:500, msg:err});
+        else {
+            res.status(200).json({article});
+        }
+    });
+});
+
 router.get('/:articles_id/comments', function (req, res, next) {
     const slug = req.params.articles_id;
     models.Comments.find({ belongs_to: slug })
@@ -69,23 +80,6 @@ router.put('/:article_id', function (req, res) {
         });
 }
 );
-router.post('/:articles_id/comments', function (req, res, next) {
-    // add comment to article
-    let newComment = new models.Comments({
-        body: req.body.body,
-        belongs_to: req.params.articles_id
-    });
-    newComment.save()
-        .then((newComment) => {
-            res.json(201, { comment: newComment });
-        })
-        .catch((err) => {
-            console.log(err);
-            if (err.name === 'CastError') {
-                return next({ status: 422, message: 'Incorrect/Invalid ID' });
-            }
-            next(err);
-        });
-});
+
 
 module.exports = router;

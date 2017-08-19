@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
 const ArticleCard = function (props) {
-  console.log(props.id)
   return (
     <div className='box'>
       <article className='media'>
@@ -14,15 +14,21 @@ const ArticleCard = function (props) {
         </div>
         <div className='media-content'>
           <div className='content'>
-            <Link to="/articles/{this.props.id}"><h3 className='title is-3'>{props.title}</h3></Link>
+            <Link to ={'/articles/' + props._id}>
+            <h2 className='title is-3'>{props.title}</h2>
+            <span className = 'subtitile is-6'> by {props.author}</span>
+            </Link>
           </div>
         </div>
       </article>
     </div>
   );
 };
+
 ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
-  votes: PropTypes.number.isRequired
+  votes: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired
 };
+
 export default ArticleCard;
