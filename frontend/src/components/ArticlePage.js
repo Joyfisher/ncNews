@@ -41,8 +41,6 @@ class ArticlePage extends React.Component {
     });
   }
   render () {
-    console.log('props: ' + this.props);
-    console.log('state: ' + this.state);
     const { article } = this.state;
     return (
       <div id='ArticlePage'>
