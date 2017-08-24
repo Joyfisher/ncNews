@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
 
 // find Article by ID
 router.get('/:article_id', function (req, res, next) {
-    models.Articles.findById(req.params.articles_id, function (err, article) {
+    models.Articles.findById(req.params.article_id, function (err, article) {
         if (err) return next({status:500, msg:err});
         else {
             res.status(200).json({article});

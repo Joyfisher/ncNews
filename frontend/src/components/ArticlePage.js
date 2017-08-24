@@ -9,7 +9,7 @@ class ArticlePage extends React.Component {
     super(props);
     this.state = {
       comment: '',
-      article:[]
+      article: {}
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,11 +29,11 @@ class ArticlePage extends React.Component {
     });
   }
   componentDidMount () {
-    axios.get(`${path}/${this.props.match.params.id}`)
-    .then(articles => {
-      console.dir('Articles:' + articles.data);
+    const url = `${path}/${this.props.match.params.id}`;
+    axios.get(url)
+    .then(res => {
       this.setState(
-        {article: articles.data}
+        {article: res.data.article}
       );
     })
     .catch((err) => {
@@ -45,12 +45,13 @@ class ArticlePage extends React.Component {
     return (
       <div id='ArticlePage'>
         <h3 className='title is-3'>
-          {article}
+          {article.title}
         </h3>
         <br />
         <h4 className='title is-4'>
-          {article}
+          {article.created_by}
         </h4>
+        <p>{article.body}</p>
         <form onSubmit={this.handleSubmit} className='form'>
           <label>
             Comment:

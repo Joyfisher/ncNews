@@ -38,6 +38,9 @@ class TopicList extends React.Component {
             <ArticleCard
               votes={topic.votes}
               title={topic.title}
+              _id={topic._id}
+              body={topic.body}
+              created_by={topic.created_by}
             /><br />
             </div>;
         })
