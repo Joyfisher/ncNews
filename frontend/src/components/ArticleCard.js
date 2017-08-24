@@ -16,7 +16,7 @@ const ArticleCard = function (props) {
           <div className='content'>
             <Link to ={'/articles/' + props._id}>
             <h2 className='title is-3'>{props.title}</h2>
-            <span className = 'subtitile is-6'> by {props.author}</span>
+            <span className = 'subtitile is-6'> by {props.created_by}</span>
             </Link>
           </div>
         </div>
