@@ -22,7 +22,7 @@ const CommentCard = function (props) {
 };
 CommentCard.propTypes = {
   comment: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
   votes: PropTypes.number.isRequired
 };
 export default CommentCard;

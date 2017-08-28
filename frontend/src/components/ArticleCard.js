@@ -8,7 +8,7 @@ const ArticleCard = function (props) {
       <article className='media'>
         <div className='media-left'>
           <i className='fa fa-arrow-up' aria-hidden='true'></i>
-          <p>Upvotes:</p>
+          <p>votes:</p>
           <i className='fa fa-arrow-down' aria-hidden='true'></i>
           {props.votes}
         </div>
@@ -16,7 +16,7 @@ const ArticleCard = function (props) {
           <div className='content'>
             <Link to ={'/articles/' + props._id}>
             <h2 className='title is-3'>{props.title}</h2>
-            <span className = 'subtitile is-6'> by {props.created_by}</span>
+            <span className = 'subtitile is-6'>{props.created_by}</span>
             </Link>
           </div>
         </div>
