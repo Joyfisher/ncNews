@@ -28,7 +28,8 @@ const ArticleCard = function (props) {
 ArticleCard.propTypes = {
   title: PropTypes.string.isRequired,
   votes: PropTypes.number.isRequired,
-  _id: PropTypes.string.isRequired
+  _id: PropTypes.string.isRequired,
+  created_by: PropTypes.string
 };
 
 export default ArticleCard;

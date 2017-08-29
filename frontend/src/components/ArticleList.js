@@ -12,7 +12,7 @@ class ArticleList extends React.Component {
     };
   }
   componentDidMount () {
-    axios.get(`${path}`)
+    axios.get(path)
       .then(articles => {
         this.setState(
           { articles: articles.data.articles,

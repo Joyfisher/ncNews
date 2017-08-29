@@ -1,18 +1,56 @@
 import React from 'react';
 import CommentCard from './CommentCard';
 import '../css/Comments.css';
+import Loading from './Loading';
+import axios from 'axios';
 
-const comments = [{ comment: 'hello', votes: 14 },
-{ comment: 'awesome', votes: 15, username: 'tickle122' },
-{ comment: 'not even sure what this article is about', votes: -12, username: 'tickle122' },
-{ comment: 'Great', votes: 25, username: 'tickle122' },
-{ comment: 'WhAAAAAAAAAt', votes: 8, username: 'tickle122' }];
+const path = 'http://localhost:3000/api/articles/:article_id/comments';
+
 class Comments extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      comments: [],
+      loading: false
+    };
+  }
+
+  componentDidMount () {
+    let articleId = this.props.articleId;
+    console.log(articleId);
+    let replacedPath = path.replace(':article_id', articleId);
+    console.log(replacedPath);
+
+    axios.get(replacedPath)
+      .then(comments => {
+        this.setState(
+          { comments: comments.data.commentsForArticles,
+          loading:false }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render () {
+
+    const { loading, comments } = this.state;
     return (
-      <div id='Comments'>
-       {comments.map(comment => <CommentCard comment={comment.comment} votes={comment.votes} username={comment.username} key={comment.comment} />)}
-      </div>
+      loading ?
+        <Loading /> :
+        <div id='Comments'>
+          {
+            comments.map((comment, i) => {
+              return <div key={i}>
+                <CommentCard
+                  votes={comment.votes}
+                  body={comment.body}
+                  created_by={comment.created_by} />
+              </div>;
+            })
+          }
+        </div>
     );
   }
 }
