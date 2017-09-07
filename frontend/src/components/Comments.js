@@ -17,7 +17,6 @@ class Comments extends React.Component {
 
   componentDidMount () {
     let articleId = this.props.articleId;
-    console.log(articleId);
     let replacedPath = path.replace(':article_id', articleId);
     console.log(replacedPath);
 
