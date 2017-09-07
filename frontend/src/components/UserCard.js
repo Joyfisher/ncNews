@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const UserCard = function (props) {
   return (
@@ -13,7 +14,8 @@ const UserCard = function (props) {
         </div>
         <div className='media-content'>
           <div className='content'>
-            <a href="/users/:id"><h3 className='title is-3'>{props.username}</h3></a>
+            <Link to={'/users/' + props.username}>
+            <h3 className='title is-3'>{props.username}</h3></Link>
           </div>
         </div>
       </article>

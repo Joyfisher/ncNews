@@ -12,7 +12,7 @@ class ArticleList extends React.Component {
     };
   }
   componentDidMount () {
-    axios.get(`${path}`)
+    axios.get(path)
       .then(articles => {
         this.setState(
           { articles: articles.data.articles,
@@ -29,14 +29,13 @@ class ArticleList extends React.Component {
       loading ?
         <Loading /> :
         <div id='ArticleList'>
-          <h1>Articles</h1>
           {
             articles.map((article, i) => {
               return <div key={i}>
                 <ArticleCard
                   title={article.title}
                   votes={article.votes}
-                  id={article._id} />
+                  _id={article._id} />
               </div>;
             })
           }

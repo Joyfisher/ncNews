@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 const CommentCard = function (props) {
   return (
     <div className='box'>
@@ -12,8 +13,8 @@ const CommentCard = function (props) {
         </div>
         <div className='media-content'>
           <div className='content'>
-            <h3 className='title is-3'>{props.comment}</h3>
-            <h5 className='title is-5'>{props.username}</h5>
+            <h3 className='title is-3'>{props.body}</h3>
+            <h5 className='title is-5'>{props.created_by}</h5>
           </div>
         </div>
       </article>
@@ -21,8 +22,8 @@ const CommentCard = function (props) {
   );
 };
 CommentCard.propTypes = {
-  comment: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  votes: PropTypes.number.isRequired
+  created_by: PropTypes.string,
+  votes: PropTypes.number.isRequired,
+  body: PropTypes.string
 };
 export default CommentCard;

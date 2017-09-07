@@ -9,7 +9,7 @@ class ArticlePage extends React.Component {
     super(props);
     this.state = {
       comment: '',
-      article: {}
+      article: null
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,37 +31,44 @@ class ArticlePage extends React.Component {
   componentDidMount () {
     const url = `${path}/${this.props.match.params.id}`;
     axios.get(url)
-    .then(res => {
-      this.setState(
-        {article: res.data.article}
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then(res => {
+        this.setState(
+          { article: res.data.article }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   render () {
     const { article } = this.state;
-    return (
-      <div id='ArticlePage'>
-        <h3 className='title is-3'>
-          {article.title}
-        </h3>
-        <br />
-        <h4 className='title is-4'>
-          {article.created_by}
-        </h4>
-        <p>{article.body}</p>
-        <form onSubmit={this.handleSubmit} className='form'>
-          <label>
-            Comment:
+    let commentComponent = null;
+    if (article) {
+      commentComponent = <Comments articleId={article._id} />;
+      return (
+        <div id='ArticlePage'>
+          <h3 className='title is-3'>
+            {article.title}
+          </h3>
+          <br />
+          <h4 className='title is-4'>
+            {article.created_by}
+          </h4>
+          <p>{article.body}</p>
+          <form onSubmit={this.handleSubmit} className='form'>
+            <label>
+              Comment:
                     <input type="text" name='comment' value={this.state.comment} onChange={this.handleInputChange} placeholder='Comments here' /><br />
-          </label>
-          <button>Add a Comment</button>
-        <Comments />
-        </form>
-      </div>
-    );
+            </label>
+            <button>Add a Comment</button>
+
+            {commentComponent}
+          </form>
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 }
 ArticlePage.propTypes = {
