@@ -1,17 +1,46 @@
 import React from 'react';
+import Loading from './Loading';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
-const oneUser = [
-  {username: 'tickle122', name: 'Tom Tickle', avatar_url: 'http://www.spiritsurfers.net/monastery/wp-content/uploads/_41500270_mrtickle.jpg'}
-];
+const path = 'http://localhost:3000/api/users';
+
 class UserPage extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            user: [],
+            loading: false
+        };
+    }
+
+  componentDidMount () {
+    const url = `${path}/${this.props.match.params.username}`;
+    axios.get(url)
+      .then(res => {
+        this.setState(
+          { user: res.data.commentPoster[0],
+          loading:false }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
     render () {
+        const { loading, user } = this.state;
         return (
-            <div>
-                <h3>{oneUser[0].username}</h3>
-                <h3>{oneUser[0].name}</h3>
-                <img src={oneUser[0].avatar_url}/>
+            loading ?
+            <Loading /> :
+            <div id='UserPage'>
+                <h3>{user.username}</h3>
+                <h3>{user.name}</h3>
+                <img src={user.avatar_url}/>
             </div>
         );
     }
 }
+UserPage.propTypes = {
+    match: PropTypes.object.isRequired
+};
 export default UserPage;

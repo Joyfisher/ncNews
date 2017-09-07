@@ -22,7 +22,7 @@ ReactDOM.render(<Router history={history}>
      
       <Route path='/topics/:id' component={Topics} />
       
-      <Route path='/users/:id' component={UserPage} />
+      <Route path='/users/:username' component={UserPage} />
       <Route path='/users' component={Users} />
     </Switch>
   </App>

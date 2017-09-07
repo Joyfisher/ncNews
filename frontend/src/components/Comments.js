@@ -18,7 +18,6 @@ class Comments extends React.Component {
   componentDidMount () {
     let articleId = this.props.articleId;
     let replacedPath = path.replace(':article_id', articleId);
-    console.log(replacedPath);
 
     axios.get(replacedPath)
       .then(comments => {

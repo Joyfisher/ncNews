@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const path = 'http://localhost:3000/api/articles';
 class ArticlePage extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       comment: '',
@@ -14,7 +14,7 @@ class ArticlePage extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleInputChange(event) {
+  handleInputChange (event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -22,13 +22,13 @@ class ArticlePage extends React.Component {
       [name]: value
     });
   }
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault();
     this.setState({
       comment: ''
     });
   }
-  componentDidMount() {
+  componentDidMount () {
     const url = `${path}/${this.props.match.params.id}`;
     axios.get(url)
       .then(res => {
@@ -40,7 +40,7 @@ class ArticlePage extends React.Component {
         console.log(err);
       });
   }
-  render() {
+  render () {
     const { article } = this.state;
     let commentComponent = null;
     if (article) {
