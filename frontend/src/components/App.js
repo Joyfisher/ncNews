@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../css/App.css';
 
 class App extends React.Component {
   render () {
@@ -22,10 +23,10 @@ class App extends React.Component {
                 Football
               </a>
               <a className='navbar-item' href='/topics/cooking'>
-                Cooking
+                 Cooking
               </a>
               <a className='navbar-item' href='/topics/coding'>
-                Coding
+                 Coding
               </a>
             </div>
           </div>
