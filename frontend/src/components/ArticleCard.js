@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import '../css/App.css';
 
 const ArticleCard = function (props) {
   return (
@@ -8,15 +9,15 @@ const ArticleCard = function (props) {
       <article className='media'>
         <div className='media-left'>
           <i className='fa fa-arrow-up' aria-hidden='true'></i>
-          <p>votes:</p>
+        
+          <p>{props.votes}</p>
+          
           <i className='fa fa-arrow-down' aria-hidden='true'></i>
-          {props.votes}
         </div>
         <div className='media-content'>
           <div className='content'>
             <Link to ={'/articles/' + props._id}>
             <h2 className='title is-3'>{props.title}</h2>
-            <span className = 'subtitile is-6'>{props.created_by}</span>
             </Link>
           </div>
         </div>

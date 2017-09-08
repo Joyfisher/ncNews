@@ -2,10 +2,12 @@ import React from 'react';
 import Comments from './Comments';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import '../css/Articles.css';
+import { Link } from 'react-router-dom';
 
 const path = 'http://localhost:3000/api/articles';
 class ArticlePage extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       comment: '',
@@ -14,7 +16,7 @@ class ArticlePage extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleInputChange (event) {
+  handleInputChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -22,13 +24,13 @@ class ArticlePage extends React.Component {
       [name]: value
     });
   }
-  handleSubmit (e) {
+  handleSubmit(e) {
     e.preventDefault();
     this.setState({
       comment: ''
     });
   }
-  componentDidMount () {
+  componentDidMount() {
     const url = `${path}/${this.props.match.params.id}`;
     axios.get(url)
       .then(res => {
@@ -40,24 +42,30 @@ class ArticlePage extends React.Component {
         console.log(err);
       });
   }
-  render () {
+  render() {
     const { article } = this.state;
     let commentComponent = null;
     if (article) {
       commentComponent = <Comments articleId={article._id} />;
       return (
         <div id='ArticlePage'>
+          <br />
           <h3 className='title is-3'>
             {article.title}
           </h3>
           <br />
-          <h4 className='title is-4'>
-            {article.created_by}
-          </h4>
-          <p>{article.body}</p>
+          <div className='articleBody'>
+            {article.body}
+          </div>
+          <br />
+          <Link to={'/users/' + article.created_by}>
+            <h5 className='title is-5'>
+              {article.created_by}
+              </h5></Link>
+          <br />
           <form onSubmit={this.handleSubmit} className='form'>
             <label>
-              Comment:
+              What are your thoughts?:
                     <input type="text" name='comment' value={this.state.comment} onChange={this.handleInputChange} placeholder='Comments here' /><br />
             </label>
             <button>Add a Comment</button>
