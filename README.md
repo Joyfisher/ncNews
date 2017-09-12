@@ -6,6 +6,8 @@ Northcoders News is a social news aggregation, web content rating, and discussio
 
 Instructions
 
+Fork then clone this project.
+Run npm install to install all of the dependencies you will need to run ncNews.
 Open three terminals.
 In terminal #1, run mongod.
 In terminal #2, type cd server, then npm run start.
