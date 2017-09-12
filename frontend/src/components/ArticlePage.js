@@ -4,10 +4,12 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import '../css/Articles.css';
 import { Link } from 'react-router-dom';
+import NewComment from './NewComment';
 
 const path = 'http://localhost:3000/api/articles';
+
 class ArticlePage extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       comment: '',
@@ -16,7 +18,7 @@ class ArticlePage extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleInputChange(event) {
+  handleInputChange (event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -24,25 +26,25 @@ class ArticlePage extends React.Component {
       [name]: value
     });
   }
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault();
     this.setState({
       comment: ''
     });
   }
-  componentDidMount() {
+  componentDidMount () {
     const url = `${path}/${this.props.match.params.id}`;
     axios.get(url)
       .then(res => {
         this.setState(
-          { article: res.data.article }
+          { article: res.data.article, comment: res.data.NewComment }
         );
       })
       .catch((err) => {
         console.log(err);
       });
   }
-  render() {
+  render () {
     const { article } = this.state;
     let commentComponent = null;
     if (article) {
@@ -63,15 +65,13 @@ class ArticlePage extends React.Component {
               {article.created_by}
               </h5></Link>
           <br />
-          <form onSubmit={this.handleSubmit} className='form'>
-            <label>
-              What are your thoughts?:
-                    <input type="text" name='comment' value={this.state.comment} onChange={this.handleInputChange} placeholder='Comments here' /><br />
-            </label>
-            <button>Add a Comment</button>
-
-            {commentComponent}
-          </form>
+          <div className="NewComment">
+            
+            <NewComment 
+              articleId={this.props.match.params.id}
+            />
+          </div>
+            {commentComponent}        
         </div>
       );
     } else {
