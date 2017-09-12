@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const path = 'http://localhost:3000/api/articles/:article_id/comments';
 
 class comment extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       comment: ''
@@ -14,19 +14,19 @@ class comment extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange (event) {
     this.setState({
       comment: event.target.value,
     });
   }
-  handleSubmit(e) {
+  handleSubmit (e) {
     e.preventDefault();
     let articleId = this.props.articleId;
     let replacedPath = path.replace(':article_id', articleId);
     return axios.post(replacedPath, {
       body: this.state.comment,
     })
-      .then((res) => {
+      .then(() => {
         this.setState({ comment: '' });
       })
       .catch((err) => {
@@ -34,7 +34,7 @@ class comment extends React.Component {
       });
   }
 
-  render() {
+  render () {
     return (
       <div className="comment">
         <h3>What are your thoughts?</h3>

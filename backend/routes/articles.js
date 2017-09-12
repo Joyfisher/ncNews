@@ -15,9 +15,9 @@ router.get('/', function (req, res) {
 // find Article by ID
 router.get('/:article_id', function (req, res, next) {
     models.Articles.findById(req.params.article_id, function (err, article) {
-        if (err) return next({status:500, msg:err});
+        if (err) return next({ status: 500, msg: err });
         else {
-            res.status(200).json({article});
+            res.status(200).json({ article });
         }
     });
 });
@@ -59,7 +59,7 @@ router.post('/:articles_id/comments', function (req, res, next) {
 
 
 router.put('/:article_id', function (req, res) {
-        const {article_id} = req.params;
+    const { article_id } = req.params;
 
     let vote = req.query.vote;
     let query;
