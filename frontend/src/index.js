@@ -19,9 +19,9 @@ ReactDOM.render(<Router history={history}>
     <Switch>
       <Route exact path='/' component={ArticleList} />
       <Route path='/articles/:id' component={ArticlePage} />
-     
+
       <Route path='/topics/:id' component={Topics} />
-      
+
       <Route path='/users/:username' component={UserPage} />
       <Route path='/users' component={Users} />
     </Switch>
